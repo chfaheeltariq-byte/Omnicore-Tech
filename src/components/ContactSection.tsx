@@ -102,6 +102,8 @@ export function ContactSection() {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5 }}
           onSubmit={handleSubmit}
+          method="POST"
+          action="/"
           name={formName}
           data-netlify="true"
           netlify-honeypot="bot-field"
