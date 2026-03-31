@@ -1,13 +1,10 @@
 import type { ChangeEvent, FormEvent } from 'react'
 import { motion } from 'framer-motion'
 import { Send, Shield, Sparkles } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { SectionHeading } from './SectionHeading'
 
 const formName = 'contact'
-
-const encodeFormData = (data: Record<string, string>) =>
-  new URLSearchParams(data).toString()
 
 type FormState = {
   name: string
@@ -32,39 +29,22 @@ export function ContactSection() {
     message: '',
   })
 
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    if (params.get('submitted') === 'true') {
+      setForm(initialForm)
+      setStatus({ type: 'success', message: 'Your message was sent successfully. We will receive it by email.' })
+      window.history.replaceState({}, document.title, `${window.location.pathname}#contact`)
+    }
+  }, [])
+
   const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target
     setForm((current) => ({ ...current, [name]: value }))
   }
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+  const handleSubmit = (_event: FormEvent<HTMLFormElement>) => {
     setStatus({ type: 'loading', message: 'Sending your message...' })
-
-    try {
-      const response = await fetch('/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: encodeFormData({
-          'form-name': formName,
-          ...form,
-        }),
-      })
-
-      if (!response.ok) {
-        throw new Error('Failed to submit form')
-      }
-
-      setForm(initialForm)
-      setStatus({ type: 'success', message: 'Your message was sent successfully. We will receive it by email.' })
-    } catch {
-      setStatus({
-        type: 'error',
-        message: 'We could not send your message right now. Please try again in a moment.',
-      })
-    }
   }
 
   return (
@@ -103,7 +83,7 @@ export function ContactSection() {
           transition={{ duration: 0.5 }}
           onSubmit={handleSubmit}
           method="POST"
-          action="/"
+          action="/?submitted=true"
           name={formName}
           data-netlify="true"
           netlify-honeypot="bot-field"
