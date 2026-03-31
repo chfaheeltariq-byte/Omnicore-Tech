@@ -1,7 +1,7 @@
 import type { ChangeEvent, FormEvent } from 'react'
 import { motion } from 'framer-motion'
 import { Send, Shield, Sparkles } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { SectionHeading } from './SectionHeading'
 
 const formName = 'contact'
@@ -28,15 +28,6 @@ export function ContactSection() {
     type: 'idle',
     message: '',
   })
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search)
-    if (params.get('submitted') === 'true') {
-      setForm(initialForm)
-      setStatus({ type: 'success', message: 'Your message was sent successfully. We will receive it by email.' })
-      window.history.replaceState({}, document.title, `${window.location.pathname}#contact`)
-    }
-  }, [])
 
   const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target
@@ -83,7 +74,7 @@ export function ContactSection() {
           transition={{ duration: 0.5 }}
           onSubmit={handleSubmit}
           method="POST"
-          action="/?submitted=true"
+          action="/thanks.html"
           name={formName}
           data-netlify="true"
           netlify-honeypot="bot-field"
