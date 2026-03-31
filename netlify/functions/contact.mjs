@@ -1,6 +1,7 @@
 import { Resend } from 'resend'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
+const contactRecipient = process.env.CONTACT_TO_EMAIL || 'omnicoretech516@gmail.com'
 
 const json = (statusCode, body) =>
   new Response(JSON.stringify(body), {
@@ -21,14 +22,14 @@ export default async (request) => {
     return json(400, { error: 'Name, email, and message are required.' })
   }
 
-  if (!process.env.RESEND_API_KEY || !process.env.CONTACT_TO_EMAIL || !process.env.RESEND_FROM_EMAIL) {
+  if (!process.env.RESEND_API_KEY || !process.env.RESEND_FROM_EMAIL) {
     return json(500, { error: 'Missing email configuration.' })
   }
 
   try {
     await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL,
-      to: [process.env.CONTACT_TO_EMAIL],
+      to: [contactRecipient],
       replyTo: email,
       subject: `New Omnicore Tech inquiry from ${name}`,
       text: [
