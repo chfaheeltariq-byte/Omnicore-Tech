@@ -4,8 +4,6 @@ import { Send, Shield, Sparkles } from 'lucide-react'
 import { useState } from 'react'
 import { SectionHeading } from './SectionHeading'
 
-const formName = 'contact'
-
 type FormState = {
   name: string
   email: string
@@ -35,7 +33,32 @@ export function ContactSection() {
   }
 
   const handleSubmit = (_event: FormEvent<HTMLFormElement>) => {
+    _event.preventDefault()
     setStatus({ type: 'loading', message: 'Sending your message...' })
+
+    void (async () => {
+      try {
+        const response = await fetch('/.netlify/functions/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(form),
+        })
+
+        if (!response.ok) {
+          throw new Error('Failed to submit form')
+        }
+
+        setForm(initialForm)
+        setStatus({ type: 'success', message: 'Your message was sent successfully. We will receive it by email.' })
+      } catch {
+        setStatus({
+          type: 'error',
+          message: 'We could not send your message right now. Please try again in a moment.',
+        })
+      }
+    })()
   }
 
   return (
@@ -73,15 +96,8 @@ export function ContactSection() {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5 }}
           onSubmit={handleSubmit}
-          method="POST"
-          action="/thanks.html"
-          name={formName}
-          data-netlify="true"
-          netlify-honeypot="bot-field"
           className="border-t border-slate-200 pt-4 md:pt-6"
         >
-          <input type="hidden" name="form-name" value={formName} />
-          <input type="hidden" name="bot-field" />
           <div className="grid gap-5 md:grid-cols-2">
             <label className="grid gap-2">
               <span className="text-sm font-semibold text-slate-700">Name</span>
