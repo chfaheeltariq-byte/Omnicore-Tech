@@ -1,5 +1,5 @@
 [build]
-  command = "npm run build"
+  command = "npm install --no-save @rolldown/binding-linux-x64-gnu@1.0.0-rc.12 && npm run build"
   publish = "dist"
 
 [build.environment]
