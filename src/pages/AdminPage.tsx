@@ -52,7 +52,7 @@ export function AdminPage() {
 
           {status === 'error' ? (
             <div className="mt-8 rounded-[1.5rem] bg-rose-50 p-5 text-rose-600">
-              The admin panel could not reach the backend API. Start the server and configure the database.
+              The admin panel could not reach the backend API. Live website inquiries are now best checked in Netlify Forms notifications or your email inbox.
             </div>
           ) : null}
 

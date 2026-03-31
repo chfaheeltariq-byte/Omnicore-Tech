@@ -4,6 +4,11 @@ import { Send, Shield, Sparkles } from 'lucide-react'
 import { useState } from 'react'
 import { SectionHeading } from './SectionHeading'
 
+const formName = 'contact'
+
+const encodeFormData = (data: Record<string, string>) =>
+  new URLSearchParams(data).toString()
+
 type FormState = {
   name: string
   email: string
@@ -37,12 +42,15 @@ export function ContactSection() {
     setStatus({ type: 'loading', message: 'Sending your message...' })
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000/api'}/contact`, {
+      const response = await fetch('/', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify(form),
+        body: encodeFormData({
+          'form-name': formName,
+          ...form,
+        }),
       })
 
       if (!response.ok) {
@@ -50,11 +58,11 @@ export function ContactSection() {
       }
 
       setForm(initialForm)
-      setStatus({ type: 'success', message: 'Your message was sent successfully.' })
+      setStatus({ type: 'success', message: 'Your message was sent successfully. We will receive it by email.' })
     } catch {
       setStatus({
         type: 'error',
-        message: 'The form could not reach the API. Start the backend server to save messages in SQL.',
+        message: 'We could not send your message right now. Please try again in a moment.',
       })
     }
   }
@@ -73,7 +81,7 @@ export function ContactSection() {
             {[
               { icon: Sparkles, text: 'Fast discovery around your business goals' },
               { icon: Shield, text: 'Production-ready architecture and clean implementation' },
-              { icon: Send, text: 'SQL-backed contact flow with admin-ready message listing' },
+              { icon: Send, text: 'Direct inquiry delivery to the Omnicore Tech inbox' },
             ].map((item) => {
               const Icon = item.icon
               return (
@@ -94,8 +102,13 @@ export function ContactSection() {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5 }}
           onSubmit={handleSubmit}
+          name={formName}
+          data-netlify="true"
+          netlify-honeypot="bot-field"
           className="border-t border-slate-200 pt-4 md:pt-6"
         >
+          <input type="hidden" name="form-name" value={formName} />
+          <input type="hidden" name="bot-field" />
           <div className="grid gap-5 md:grid-cols-2">
             <label className="grid gap-2">
               <span className="text-sm font-semibold text-slate-700">Name</span>
