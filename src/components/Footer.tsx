@@ -32,11 +32,15 @@ export function Footer() {
             <div className="mt-5 space-y-4 text-sm text-slate-700">
               <div className="flex items-center gap-3">
                 <Mail size={16} />
-                <span>hello@omnicoretech.com</span>
+                <a href="mailto:omnicoretech516@gmail.com" className="transition hover:text-slate-950">
+                  omnicoretech516@gmail.com
+                </a>
               </div>
               <div className="flex items-center gap-3">
                 <Phone size={16} />
-                <span>+92 300 0000000</span>
+                <a href="tel:03148034141" className="transition hover:text-slate-950">
+                  03148034141
+                </a>
               </div>
               <div className="flex items-center gap-3">
                 <MapPin size={16} />
