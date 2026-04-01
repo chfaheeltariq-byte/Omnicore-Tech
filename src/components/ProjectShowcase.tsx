@@ -27,7 +27,7 @@ export function ProjectShowcase() {
   }
 
   return (
-    <section className="relative overflow-hidden px-4 py-12 sm:px-5 md:px-8 md:py-14">
+    <section id="portfolio" className="relative overflow-hidden px-4 py-12 sm:px-5 md:px-8 md:py-14">
       <div className="pointer-events-none absolute inset-x-0 top-8 h-80 bg-[radial-gradient(circle_at_60%_10%,rgba(56,189,248,0.14),transparent_40%)]" />
       <div className="mx-auto max-w-6xl">
         <div className="mb-6 flex items-end justify-between gap-6 md:mb-8">
