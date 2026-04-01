@@ -61,7 +61,7 @@ export function Navbar() {
     : 'fixed inset-x-0 top-0 z-[70] border-b border-white/80 bg-[rgba(248,250,252,0.88)] shadow-[0_18px_50px_rgba(15,23,42,0.08)] backdrop-blur-xl transition-all duration-300'
 
   const desktopLinkClassName = heroHeader
-    ? 'group relative px-2 py-1 text-sm font-semibold text-white/88 transition duration-300 hover:text-cyan-200'
+    ? 'group relative px-2 py-1 text-sm font-semibold text-white drop-shadow-[0_1px_8px_rgba(15,23,42,0.35)] transition duration-300 hover:text-cyan-200'
     : 'group relative px-2 py-1 text-sm font-semibold text-slate-600 transition duration-300 hover:text-slate-950'
 
   const mobileButtonClassName = heroHeader
