@@ -1,6 +1,7 @@
-import { Facebook, Home, Instagram, Linkedin, Mail, UserRound, X, BriefcaseBusiness } from 'lucide-react'
+import { BriefcaseBusiness, Home, Mail, UserRound, X } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
 import { BrandLogo } from '../components/BrandLogo'
+import { FacebookIcon, InstagramIcon, LinkedInIcon, TikTokIcon } from '../components/SocialIcons'
 
 const links = [
   { label: 'Home', href: '/', icon: Home },
@@ -74,13 +75,22 @@ export function MobileMenuPage() {
             <Mail size={18} />
           </a>
           <a
-            href="https://instagram.com"
+            href="https://www.instagram.com/omnicoretech516/"
             target="_blank"
             rel="noreferrer"
             className="flex h-12 w-12 items-center justify-center rounded-full bg-[linear-gradient(135deg,#f97316,#ec4899)] text-white"
             aria-label="Instagram"
           >
-            <Instagram size={18} />
+            <InstagramIcon className="h-[18px] w-[18px]" />
+          </a>
+          <a
+            href="https://www.tiktok.com/@omnicore.tech"
+            target="_blank"
+            rel="noreferrer"
+            className="flex h-12 w-12 items-center justify-center rounded-full bg-[linear-gradient(135deg,#111111,#25f4ee,#fe2c55)] text-white"
+            aria-label="TikTok"
+          >
+            <TikTokIcon className="h-[18px] w-[18px]" />
           </a>
           <a
             href="https://facebook.com"
@@ -89,7 +99,7 @@ export function MobileMenuPage() {
             className="flex h-12 w-12 items-center justify-center rounded-full bg-[#2563eb] text-white"
             aria-label="Facebook"
           >
-            <Facebook size={18} />
+            <FacebookIcon className="h-[18px] w-[18px]" />
           </a>
           <a
             href="https://linkedin.com"
@@ -98,7 +108,7 @@ export function MobileMenuPage() {
             className="flex h-12 w-12 items-center justify-center rounded-full bg-[#1d4ed8] text-white"
             aria-label="LinkedIn"
           >
-            <Linkedin size={18} />
+            <LinkedInIcon className="h-[18px] w-[18px]" />
           </a>
         </div>
 
